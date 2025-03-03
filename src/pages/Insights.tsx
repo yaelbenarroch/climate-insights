@@ -7,7 +7,6 @@ import {
   Tooltip, ResponsiveContainer, Legend, LineChart, Line, 
   PieChart, Pie, Cell
 } from "recharts";
-import { ChartContainer, ChartTooltipContent, ChartTooltip } from "@/components/ui/chart";
 
 // Sample climate data for visualizations
 const temperatureData = [
