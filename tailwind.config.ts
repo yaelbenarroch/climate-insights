@@ -53,6 +53,33 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Ocean-themed colors
+        ocean: {
+          50: "#f0f9ff",
+          100: "#e0f2fe",
+          200: "#bae6fd",
+          300: "#7dd3fc",
+          400: "#38bdf8",
+          500: "#0ea5e9",
+          600: "#0284c7",
+          700: "#0369a1",
+          800: "#075985",
+          900: "#0c4a6e",
+          950: "#082f49",
+        },
+        deep: {
+          50: "#f5f7fa",
+          100: "#ebeef5",
+          200: "#d2d9e7",
+          300: "#a9b8d4",
+          400: "#7a93bc",
+          500: "#5674a3",
+          600: "#435b87",
+          700: "#37496c",
+          800: "#2d3c59",
+          900: "#1a2236",
+          950: "#111827",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -81,7 +108,18 @@ export default {
             opacity: 1,
           },
           "50%": {
-            opacity: 0.8,
+            opacity: 0.6,
+          },
+        },
+        "float-reverse": {
+          "0%": {
+            transform: "translateY(0px) rotate(0deg)",
+          },
+          "50%": {
+            transform: "translateY(-10px) rotate(2deg)",
+          },
+          "100%": {
+            transform: "translateY(0px) rotate(0deg)",
           },
         },
       },
@@ -90,9 +128,12 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "gradient-x": "gradient-x 15s ease infinite",
         "pulse-slow": "pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "float-reverse": "float-reverse 8s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-ocean": "linear-gradient(to right, #0891b2, #8b5cf6)",
+        "gradient-deep": "linear-gradient(to right, #1e3a8a, #6366f1)",
       },
     },
   },

@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, Droplets, BarChart2, LineChart, LucideGlobe } from "lucide-react";
 
 const routes = [
-  { path: "/", label: "Home" },
-  { path: "/dashboard", label: "Dashboard" },
-  { path: "/predictions", label: "Predictions" },
-  { path: "/insights", label: "Insights" },
-  { path: "/about", label: "About" },
+  { path: "/", label: "Home", icon: <LucideGlobe className="w-4 h-4 mr-1" /> },
+  { path: "/dashboard", label: "Dashboard", icon: <BarChart2 className="w-4 h-4 mr-1" /> },
+  { path: "/predictions", label: "Predictions", icon: <LineChart className="w-4 h-4 mr-1" /> },
+  { path: "/insights", label: "Insights", icon: <Droplets className="w-4 h-4 mr-1" /> },
 ];
 
 const Navbar = () => {
@@ -36,7 +35,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300 border-b",
         isScrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-gray-200 dark:border-gray-800"
+          ? "bg-slate-900/90 backdrop-blur-md border-slate-800"
           : "bg-transparent border-transparent"
       )}
     >
@@ -49,16 +48,16 @@ const Navbar = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-teal-400" />
+                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-600 to-cyan-400" />
               </motion.div>
-              <span className="font-semibold text-lg">Climate Insights</span>
+              <span className="font-semibold text-lg text-white">OceanClimate</span>
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center space-x-8">
             {routes.map((route) => (
-              <NavLink key={route.path} to={route.path} active={location.pathname === route.path}>
+              <NavLink key={route.path} to={route.path} active={location.pathname === route.path} icon={route.icon}>
                 {route.label}
               </NavLink>
             ))}
@@ -66,7 +65,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden"
+            className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -86,7 +85,7 @@ const Navbar = () => {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+          className="md:hidden bg-slate-900 border-t border-slate-800"
         >
           <div className="py-4 px-4 space-y-3">
             {routes.map((route) => (
@@ -94,12 +93,13 @@ const Navbar = () => {
                 key={route.path}
                 to={route.path}
                 className={cn(
-                  "block py-2 px-3 rounded-lg transition-colors",
+                  "flex items-center py-2 px-3 rounded-lg transition-colors",
                   location.pathname === route.path
-                    ? "bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    ? "bg-slate-800 text-purple-400"
+                    : "hover:bg-slate-800 text-slate-200"
                 )}
               >
+                {route.icon}
                 {route.label}
               </Link>
             ))}
@@ -114,24 +114,27 @@ const NavLink = ({
   to,
   active,
   children,
+  icon,
 }: {
   to: string;
   active: boolean;
   children: React.ReactNode;
+  icon: React.ReactNode;
 }) => {
   return (
     <Link to={to} className="relative group py-2">
       <span
         className={cn(
-          "text-sm font-medium transition-colors",
-          active ? "text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300"
+          "flex items-center text-sm font-medium transition-colors",
+          active ? "text-purple-400" : "text-slate-200 hover:text-white"
         )}
       >
+        {icon}
         {children}
       </span>
       {active && (
         <motion.div
-          className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-600 dark:bg-blue-400"
+          className="absolute bottom-0 left-0 h-0.5 w-full bg-purple-500"
           layoutId="navbar-indicator"
           transition={{ type: "spring", duration: 0.5 }}
         />
