@@ -2,11 +2,12 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart, LineChart, PieChart } from "@/components/ui/chart";
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
-  Tooltip, ResponsiveContainer, Legend 
+  Tooltip, ResponsiveContainer, Legend, LineChart, Line, 
+  PieChart, Pie, Cell
 } from "recharts";
+import { ChartContainer, ChartTooltipContent, ChartTooltip } from "@/components/ui/chart";
 
 // Sample climate data for visualizations
 const temperatureData = [
@@ -62,6 +63,9 @@ const projectionData = [
   { year: 2065, lowEmissions: 1.7, moderateEmissions: 2.8, highEmissions: 4.1 },
   { year: 2070, lowEmissions: 1.8, moderateEmissions: 3.0, highEmissions: 4.5 }
 ];
+
+// Colors for the pie chart
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
 
 const Insights = () => {
   return (
@@ -152,12 +156,31 @@ const Insights = () => {
               </CardHeader>
               <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <div className="h-[400px]">
-                  <PieChart 
-                    data={emissionsData.map(item => ({
-                      name: item.name,
-                      value: item.value
-                    }))} 
-                  />
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={emissionsData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={150}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                      >
+                        {emissionsData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: "hsl(var(--card))",
+                          borderColor: "hsl(var(--border))",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </div>
                 <div className="flex flex-col justify-center space-y-4">
                   <h3 className="text-xl font-medium">Key Insights</h3>
